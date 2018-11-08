@@ -6,6 +6,10 @@
 package sistemahospitalar;
 
 //import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+import sistemahospitalar.repositories.PacienteDAO;
+
 //import javax.security.auth.callback.TextOutputCallback;
 //import javax.swing.JTextPane;
 
@@ -13,7 +17,7 @@ package sistemahospitalar;
  *
  * @author victo
  */
-public class JFsolicitarExame extends javax.swing.JFrame  {
+public class JFsolicitarExame extends javax.swing.JFrame {
 
     /**
      * Creates new form JFsolicitarExame
@@ -33,78 +37,57 @@ public class JFsolicitarExame extends javax.swing.JFrame  {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        rPaciente = new javax.swing.JTextField();
         sExame = new javax.swing.JButton();
-        exameTipo = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        exameDate = new javax.swing.JFormattedTextField();
+        txtData = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        exameCid = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
-        bTconsulta = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextField1 = new javax.swing.JTextPane();
+        txtCid = new javax.swing.JFormattedTextField();
         reg_paciente = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtNexame = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtTipoExame = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        txtNsus = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("CPF do Paciente");
+        jLabel1.setText("Número Cartão SUS:");
 
-        rPaciente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rPacienteActionPerformed(evt);
-            }
-        });
-
-        sExame.setText("Solicitar exame");
+        sExame.setText("Solicitar Exame");
         sExame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sExameActionPerformed(evt);
             }
         });
 
-        exameTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Queixa Atual", "Exame Físico Geral", "Exame Físico Atual", "Análises, Imagens, Endosc, Histol, Eletros", "Hipóteses Diagnósticas" }));
-
-        jLabel3.setText("Dados Pessoais: ");
-
         jLabel4.setText("Exame a fazer: ");
 
         jLabel5.setText("Data de Realização: ");
 
-        exameDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
-        exameDate.addActionListener(new java.awt.event.ActionListener() {
+        try {
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/#### ##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtData.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exameDateActionPerformed(evt);
+                txtDataActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("CID:");
+        jLabel7.setText("C.I.D:");
 
-        exameCid.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        exameCid.addActionListener(new java.awt.event.ActionListener() {
+        txtCid.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        txtCid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exameCidActionPerformed(evt);
+                txtCidActionPerformed(evt);
             }
         });
-
-        jButton1.setText("Cancelar");
-
-        bTconsulta.setText("Consultar");
-        bTconsulta.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bTconsultaActionPerformed(evt);
-            }
-        });
-
-        jTextField1.setEditable(false);
-        jTextField1.setAutoscrolls(false);
-        jScrollPane2.setViewportView(jTextField1);
 
         reg_paciente.setText("Registrar Paciente");
         reg_paciente.addActionListener(new java.awt.event.ActionListener() {
@@ -115,11 +98,28 @@ public class JFsolicitarExame extends javax.swing.JFrame  {
 
         jLabel8.setText("Número de exame:");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtNexame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtNexameActionPerformed(evt);
             }
         });
+
+        txtTipoExame.setColumns(20);
+        txtTipoExame.setRows(5);
+        jScrollPane3.setViewportView(txtTipoExame);
+
+        jButton1.setText("Registrar Laudo");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        try {
+            txtNsus.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("### #### #### ####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,86 +128,67 @@ public class JFsolicitarExame extends javax.swing.JFrame  {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(reg_paciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(rPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
-                                .addComponent(bTconsulta))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addComponent(exameTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNsus))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(sExame))
-                            .addComponent(reg_paciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel5)
-                                    .addComponent(exameDate, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(98, 98, 98)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(exameCid))))
-                        .addGap(15, 15, 15))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNexame, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(txtCid, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sExame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(reg_paciente)
-                .addGap(34, 34, 34)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(rPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bTconsulta))
-                .addGap(33, 33, 33)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNsus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(exameTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(exameDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(exameCid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel8)))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtNexame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5))
                     .addComponent(sExame))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -219,54 +200,15 @@ public class JFsolicitarExame extends javax.swing.JFrame  {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void sExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sExameActionPerformed
-        JFdadosExame dadosExame = new JFdadosExame();
-        dadosExame.setVisible(true);
-        dadosExame.setLocationRelativeTo(null);
-        dadosExame.equals(isVisible());
-    }//GEN-LAST:event_sExameActionPerformed
-
-    private void rPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPacienteActionPerformed
-//        String texto = "";
-//        texto = rPaciente.getText();
-    }//GEN-LAST:event_rPacienteActionPerformed
-
-    private void exameCidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exameCidActionPerformed
+    private void txtNexameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNexameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_exameCidActionPerformed
-
-    private void bTconsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTconsultaActionPerformed
-        String recebe;        
-        DadosPaciente dPaciente = new DadosPaciente();
-        
-        recebe = rPaciente.getText();
-        
-        //paciente.setNome(recebeNome);
-        
-        
-        switch (recebe) {
-            case "001":
-                jTextField1.setText(dPaciente.DadosVictorF());
-                break;
-               
-            case "002":
-                jTextField1.setText(dPaciente.DadosRoger());
-                break;
-        }
-        
-    }//GEN-LAST:event_bTconsultaActionPerformed
-
-    private void exameDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exameDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_exameDateActionPerformed
+    }//GEN-LAST:event_txtNexameActionPerformed
 
     private void reg_pacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reg_pacienteActionPerformed
         RegistroPaciente rePaciente = new RegistroPaciente();
@@ -275,9 +217,35 @@ public class JFsolicitarExame extends javax.swing.JFrame  {
         rePaciente.equals(isVisible());
     }//GEN-LAST:event_reg_pacienteActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtCidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtCidActionPerformed
+
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataActionPerformed
+
+    private void sExameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sExameActionPerformed
+        Paciente paciente = new Paciente();
+        PacienteDAO pacienteDAO = new PacienteDAO();
+
+        paciente.setnSus(txtNsus.getText());
+        paciente.setTipoExame(txtTipoExame.getText());
+        paciente.setNunExame(txtNexame.getText());
+        paciente.setDataExame(txtData.getText());
+        paciente.setCidExame(txtCid.getText());
+
+        pacienteDAO.adicionaSolicitacao(paciente);
+
+        JOptionPane.showMessageDialog(null, "Solicitação processada com sucesso!");
+    }//GEN-LAST:event_sExameActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        RegistroLaudo rePaciente = new RegistroLaudo();
+        rePaciente.setVisible(true);
+        rePaciente.setLocationRelativeTo(null);
+        rePaciente.equals(isVisible());
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -315,25 +283,22 @@ public class JFsolicitarExame extends javax.swing.JFrame  {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bTconsulta;
-    private javax.swing.JFormattedTextField exameCid;
-    private javax.swing.JFormattedTextField exameDate;
-    private javax.swing.JComboBox<String> exameTipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextPane jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField rPaciente;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton reg_paciente;
     private javax.swing.JButton sExame;
+    private javax.swing.JFormattedTextField txtCid;
+    private javax.swing.JFormattedTextField txtData;
+    private javax.swing.JTextField txtNexame;
+    private javax.swing.JFormattedTextField txtNsus;
+    private javax.swing.JTextArea txtTipoExame;
     // End of variables declaration//GEN-END:variables
 }

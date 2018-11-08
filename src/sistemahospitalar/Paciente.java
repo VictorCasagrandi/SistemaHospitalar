@@ -10,6 +10,70 @@ public class Paciente {
     String peso;
     String altura;
     String idade;
+    String nunExame;
+    String tipoExame;
+    String dataExame;
+    String cidExame;
+    String ladProvisorio;
+    String laudoData;
+    String laudoHora;
+
+    public String getLaudoData() {
+        return laudoData;
+    }
+
+    public void setLaudoData(String laudoData) {
+        this.laudoData = laudoData;
+    }
+
+    public String getLaudoHora() {
+        return laudoHora;
+    }
+
+    public void setLaudoHora(String laudoHora) {
+        this.laudoHora = laudoHora;
+    }
+
+    public String getNunExame() {
+        return nunExame;
+    }
+
+    public void setNunExame(String nunExame) {
+        this.nunExame = nunExame;
+    }
+
+    public String getLadProvisorio() {
+        return ladProvisorio;
+    }
+
+    public void setLadProvisorio(String ladProvisorio) {
+        this.ladProvisorio = ladProvisorio;
+    }
+
+    public String getTipoExame() {
+        return tipoExame;
+    }
+
+    public void setTipoExame(String tipoExame) {
+        this.tipoExame = tipoExame;
+    }
+
+    public String getDataExame() {
+        return dataExame;
+    }
+
+    public void setDataExame(String dataExame) {
+        this.dataExame = dataExame;
+    }
+
+    public String getCidExame() {
+        return cidExame;
+    }
+
+    public void setCidExame(String cidExame) {
+        this.cidExame = cidExame;
+    }
+    
 
     public String getNome() {
         return nome;
